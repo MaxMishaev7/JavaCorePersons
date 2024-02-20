@@ -1,9 +1,5 @@
 
-import java.util.Random;
-import java.util.List;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class Main {
@@ -21,8 +17,6 @@ public class Main {
             );
         }
 
-//        System.out.println(persons);
-//        System.out.println();
 
         System.out.println("\nМЛАДШЕ ВОСЕМНАДЦАТИ");
 
@@ -47,8 +41,11 @@ public class Main {
         System.out.println("\nС ВЫСШИМ ОБРАЗОВАНИЕМ");
         Stream<Person> streamInArray = persons.stream();
 
-        streamInArray.filter(pers -> (pers.getAge() >= 18 && pers.getAge() <= 60 && pers.getSex() == Sex.WOMAN && pers.getEducation() == Education.HIGHER) || (pers.getAge() >= 18 && pers.getAge() <= 65 && pers.getSex() == Sex.MAN && pers.getEducation() == Education.HIGHER))
-                .sorted((p1, p2) -> p1.getFamily().compareTo(p2.getFamily()))
+        streamInArray
+                .filter(pers -> pers.getAge() >= 18)
+                .filter(pers -> pers.getEducation() == Education.HIGHER)
+                .filter(pers -> pers.getSex() == Sex.WOMAN ? pers.getAge() <= 60 : pers.getAge() <= 65)
+                .sorted(Comparator.comparing(Person::getFamily))
                 .forEach(System.out::println);
 
         
